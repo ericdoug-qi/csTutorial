@@ -10,7 +10,8 @@ class Solution
 {
 private:
     unordered_map<int, int> prefix_sum;
-#前缀和 void dfs(TreeNode *root, int sum, int cur_sum, int &res)
+    // 前缀和
+    void dfs(TreeNode *root, int sum, int cur_sum, int &res)
     {
         if (!root)
         {
