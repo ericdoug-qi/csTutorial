@@ -12,9 +12,9 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 # 通过设定SRC变量， 将源代码路径都给SRC， 如果有多个可以直接在后面添加
 set(SRC
-${PROJECT_SOURCE_DIR}/thread_base.cpp
-${PROJECT_SOURCE_DIR}/thread_executor.cpp
-${PROJECT_SOURCE_DIR}/mythread.cpp
+${PROJECT_SOURCE_DIR}/src/thread_base.cpp
+${PROJECT_SOURCE_DIR}/src/thread_executor.cpp
+${PROJECT_SOURCE_DIR}/src/mythread.cpp
 )
 
 # 创建共享库/静态库

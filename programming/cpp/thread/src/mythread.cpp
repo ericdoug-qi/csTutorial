@@ -69,6 +69,8 @@ int main(int argc, char** argv) {
     thread_executor.name = "TestThreadExecutor";
     thread_executor.Start();
 
+    thread_executor.Wait();
+
 
     return 0;
 }

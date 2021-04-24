@@ -4,9 +4,7 @@
 class ThreadExecutor:public ThreadBase
 {
 public:
-    void Main()
-    {
-        cout << "ThreadExecutor Main" << endl;
-    }
+    void Main() override;
+   
 };
 #endif
