@@ -8,7 +8,7 @@
 class ThreadBase
 {
 public:
-    string name;
+    std::string name;
     int age = 100;
 
 
