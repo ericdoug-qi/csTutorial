@@ -1,7 +1,10 @@
 #include <iostream>
 #include <thread>
 #include <string>
+#include <sstream>
 #include "thread_executor.hpp"
+#include "msg_server.hpp"
+
 using namespace std;
 using namespace this_thread;
 using namespace chrono;
@@ -65,12 +68,25 @@ int main(int argc, char** argv) {
     // }
     // th.join();
 
-    ThreadExecutor thread_executor;
-    thread_executor.name = "TestThreadExecutor";
-    thread_executor.Start();
+    // ThreadExecutor thread_executor;
+    // thread_executor.name = "TestThreadExecutor";
+    // thread_executor.Start();
+    
+    // this_thread::sleep_for(std::chrono::seconds(2));
+    // thread_executor.Stop();
+    
+    // thread_executor.Wait();
 
-    thread_executor.Wait();
-
+    MsgServer server;
+    server.Start();
+    for (int i = 0; i < 10; i++)
+    {
+        std::stringstream ss;
+        ss << "msg: " << i+1;
+        server.SendMsg(ss.str());
+        this_thread::sleep_for(chrono::milliseconds(500));
+    }
+    server.Stop();
 
     return 0;
 }

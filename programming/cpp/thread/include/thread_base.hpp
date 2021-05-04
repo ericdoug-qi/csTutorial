@@ -11,31 +11,18 @@ public:
     std::string name;
     int age = 100;
 
+    // 启动线程
+    virtual void Start();
 
-    virtual void Start()
-    {
-        is_exit_ = false;
-        std::cout << "MyThread Main " << name << ":" << age << std::endl;
-        th_ = std::thread(&ThreadBase::Main, this);
-    }
+    // 等待线程退出
+    virtual void Wait();
 
-    virtual void Wait() 
-    {
-        if (th_.joinable()) {
-            th_.join();
-        }
-    }
+    // 设置线程退出标志，并等待
+    virtual void Stop();
+    
+    // 线程是否退出
+    bool is_exit();
 
-    virtual void Stop()
-    {
-        is_exit_ = true;
-        Wait();
-         
-    }
-
-    bool is_exit() {
-        return is_exit_;
-    }
 private:
     std::thread th_;
     bool is_exit_ = false;
