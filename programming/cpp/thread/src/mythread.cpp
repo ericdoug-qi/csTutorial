@@ -4,6 +4,8 @@
 #include <sstream>
 #include "thread_executor.hpp"
 #include "msg_server.hpp"
+#include "thread_pool.hpp"
+#include "task.hpp"
 
 using namespace std;
 using namespace this_thread;
@@ -37,6 +39,16 @@ void ThreadMainWithParams(int p1, float p2, string str, Para p4)
     cout << "ThreadMain " << p1 << " " << p2 << " " << str << endl; 
 }
 
+
+class MyTask: public Task {
+public:
+    int Run()
+    {
+        cout << "MyTask" << name << endl;
+    }
+    std::string name = "";
+
+};
 
 
 int main(int argc, char** argv) {
@@ -77,16 +89,26 @@ int main(int argc, char** argv) {
     
     // thread_executor.Wait();
 
-    MsgServer server;
-    server.Start();
-    for (int i = 0; i < 10; i++)
-    {
-        std::stringstream ss;
-        ss << "msg: " << i+1;
-        server.SendMsg(ss.str());
-        this_thread::sleep_for(chrono::milliseconds(500));
-    }
-    server.Stop();
+    // MsgServer server;
+    // server.Start();
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     std::stringstream ss;
+    //     ss << "msg: " << i+1;
+    //     server.SendMsg(ss.str());
+    //     this_thread::sleep_for(chrono::milliseconds(500));
+    // }
+    // server.Stop();
+
+    ThreadPool pool;
+    pool.Init(4);
+    pool.Start();
+
+    MyTask task1;
+    task1.name = "test name 001";
+    pool.AddTask(&task1);
+    
+    getchar();
 
     return 0;
 }
