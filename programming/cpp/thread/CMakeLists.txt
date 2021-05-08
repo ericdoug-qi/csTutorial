@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 2.6)
 
 # 添加c++11标准支持
-set(CMAKE_CXX_FLAGS "--std=c++11")
+set(CMAKE_CXX_FLAGS "--std=c++14")
 
 # 声明cmake工程
 project(mythread)
@@ -15,6 +15,9 @@ set(SRC
 ${PROJECT_SOURCE_DIR}/src/thread_base.cpp
 ${PROJECT_SOURCE_DIR}/src/thread_executor.cpp
 ${PROJECT_SOURCE_DIR}/src/mythread.cpp
+${PROJECT_SOURCE_DIR}/src/thread_pool.cpp
+${PROJECT_SOURCE_DIR}/src/task.cpp
+${PROJECT_SOURCE_DIR}/src/msg_server.cpp
 )
 
 # 创建共享库/静态库

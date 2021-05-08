@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libmythrad.a CMakeFiles/mythrad.dir/src/thread_base.cpp.o CMakeFiles/mythrad.dir/src/thread_executor.cpp.o CMakeFiles/mythrad.dir/src/mythread.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libmythrad.a

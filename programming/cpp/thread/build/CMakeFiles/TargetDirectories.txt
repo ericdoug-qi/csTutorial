@@ -1,4 +1,0 @@
-/Users/ericdoug/Documents/mydev/csTutorial/programming/cpp/thread/build/CMakeFiles/rebuild_cache.dir
-/Users/ericdoug/Documents/mydev/csTutorial/programming/cpp/thread/build/CMakeFiles/edit_cache.dir
-/Users/ericdoug/Documents/mydev/csTutorial/programming/cpp/thread/build/CMakeFiles/mythread.dir
-/Users/ericdoug/Documents/mydev/csTutorial/programming/cpp/thread/build/CMakeFiles/mythrad.dir
