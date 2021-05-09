@@ -40,8 +40,11 @@ void ThreadPool::Start()
 
     for (int i = 0; i < thread_num_; i++)
     {
-        auto th = new thread(&ThreadPool::Run, this);
+        // auto th = new thread(&ThreadPool::Run, this);
+        // threads_.push_back(th);
+        auto th = make_shared<thread>(&ThreadPool::Run, this);
         threads_.push_back(th);
+        
     }
 }
 
@@ -81,7 +84,8 @@ void ThreadPool::Run()
         ++task_run_count_;
         try
         {
-            task->Run();
+            auto re = task->Run();
+            task->SetValue(re);
         }
         catch (...)
         {
@@ -93,7 +97,7 @@ void ThreadPool::Run()
     cout << "End threadpool run " << this_thread::get_id() << endl;
 }
 
-void ThreadPool::AddTask(Task* task)
+void ThreadPool::AddTask(std::shared_ptr<Task> task)
 {
     unique_lock<mutex> lock(mux_);
     tasks_.push_back(task);
@@ -104,7 +108,7 @@ void ThreadPool::AddTask(Task* task)
 
 }
 
-Task* ThreadPool::GetTask()
+std::shared_ptr<Task> ThreadPool::GetTask()
 {
     unique_lock<mutex> lock(mux_);
 

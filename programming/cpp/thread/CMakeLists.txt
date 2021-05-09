@@ -16,8 +16,6 @@ ${PROJECT_SOURCE_DIR}/src/thread_base.cpp
 ${PROJECT_SOURCE_DIR}/src/thread_executor.cpp
 ${PROJECT_SOURCE_DIR}/src/mythread.cpp
 ${PROJECT_SOURCE_DIR}/src/thread_pool.cpp
-${PROJECT_SOURCE_DIR}/src/task.cpp
-${PROJECT_SOURCE_DIR}/src/msg_server.cpp
 )
 
 # 创建共享库/静态库
