@@ -4,7 +4,7 @@
 #include <list>
 #include <mutex>
 
-class MsgServer : public ThreadBase
+class MsgServer: public ThreadBase
 {
 public:
     // 给当前线程发消息

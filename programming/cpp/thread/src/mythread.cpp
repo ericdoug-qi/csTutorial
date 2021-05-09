@@ -45,6 +45,12 @@ public:
     int Run()
     {
         cout << "MyTask" << name << endl;
+        for (int i = 0; i < 10; i++)
+        {
+            if (is_exit()) break;
+            cout << "." << flush;
+            this_thread::sleep_for(chrono::milliseconds(500));
+        }
     }
     std::string name = "";
 
@@ -107,8 +113,14 @@ int main(int argc, char** argv) {
     MyTask task1;
     task1.name = "test name 001";
     pool.AddTask(&task1);
-    
-    getchar();
+
+    MyTask task2;
+    task2.name = "test name 002";
+    pool.AddTask(&task2);
+    this_thread::sleep_for(chrono::milliseconds(100));
+
+    this_thread::sleep_for(chrono::milliseconds(1000));
+    pool.Stop();
 
     return 0;
 }

@@ -46,6 +46,27 @@ void ThreadPool::Start()
 }
 
 /**
+     * 线程池退出
+     *  
+     */
+void ThreadPool::Stop()
+{
+    is_exit_ = true;
+    cv_.notify_all();
+
+    for (auto& th: threads_)
+    {
+        th->join();
+    }
+
+    unique_lock<mutex> lock(mux_);
+    threads_.clear();
+
+
+
+}
+
+/**
  *  线程池线程的入口函数
  * 
  */
@@ -53,10 +74,11 @@ void ThreadPool::Run()
 {
     cout << "Begin threadpool run " << this_thread::get_id() << endl;
 
-    while (true) 
+    while (!is_exit()) 
     {
         auto task = GetTask();
         if (!task) continue;
+        ++task_run_count_;
         try
         {
             task->Run();
@@ -65,6 +87,7 @@ void ThreadPool::Run()
         {
 
         }
+        --task_run_count_;
     }
 
     cout << "End threadpool run " << this_thread::get_id() << endl;
@@ -74,8 +97,10 @@ void ThreadPool::AddTask(Task* task)
 {
     unique_lock<mutex> lock(mux_);
     tasks_.push_back(task);
+    task->is_exit = [this] {return is_exit();};
     lock.unlock();
     cv_.notify_one();
+
 
 }
 
@@ -87,6 +112,9 @@ Task* ThreadPool::GetTask()
     {
         cv_.wait(lock);
     }
+
+    if (is_exit()) 
+        return nullptr;
 
     if (tasks_.empty())
         return nullptr;

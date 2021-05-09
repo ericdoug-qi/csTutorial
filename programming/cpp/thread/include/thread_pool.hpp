@@ -1,9 +1,18 @@
 #ifndef __H_THREAD_POOL_H__
+
 #include <thread>
 #include <mutex>
 #include <vector>
 #include <list>
-#include "task.hpp"
+#include <atomic>
+#include <functional>
+
+class Task
+{
+public:
+    virtual int Run() = 0;
+    std::function<bool()> is_exit = nullptr;
+};
 
 class ThreadPool
 {
@@ -28,6 +37,17 @@ public:
 
     Task* GetTask();
 
+    /**
+     * 线程池退出
+     *  
+     */
+    void Stop();
+
+    bool is_exit() { return is_exit_; }
+
+
+    int task_run_count() { return task_run_count_; }
+
 
 private:
     /**
@@ -40,6 +60,8 @@ private:
     std::vector<std::thread*> threads_;
     std::list<Task*> tasks_;
     std::condition_variable cv_;
+    bool is_exit_ = false; // 线程池退出
+    std::atomic<int> task_run_count_ = {0}; // 正在运行的task数量 
 
 
 };
